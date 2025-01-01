@@ -11,6 +11,8 @@ function App() {
       <Container>
         <Button onClick={() => setCount((c) => c + 1)}>Increment</Button>
         <div className="font-bold text-blue-500">{count}</div>
+
+        <Button>Pay Transaction</Button>
       </Container>
     </MantineProvider>
   );
