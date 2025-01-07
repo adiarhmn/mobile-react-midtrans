@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react';
-import { App } from '@capacitor/app';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { App } from "@capacitor/app";
+import { useNavigate } from "react-router-dom";
 
 const AppListener: React.FC = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        App.addListener('appUrlOpen', (event) => {
-            const url = new URL(event.url);
-            const token = url.searchParams.get('token');
-            const email = url.searchParams.get('email');
+  useEffect(() => {
+    App.addListener("appUrlOpen", (event) => {
+      const url = new URL(event.url);
+      const path = url.pathname;
 
-            if (token && email) {
-                // Navigasi ke halaman reset password
-                navigate(`/reset-password?token=${token}&email=${email}`);
-            }
-        });
-    }, []);
+      if (path === "/home") {
+        navigate("/home");
+      } else if (path === "/reset-password") {
+        navigate("/reset-password"); // Hanya redirect ke halaman ResetPassword
+      }
+    });
+  }, []);
 
-    return null;
+  return null;
 };
 
 export default AppListener;
