@@ -1,20 +1,26 @@
 import "@mantine/core/styles.css";
 import "./index.css";
-import { Button, Container, MantineProvider } from "@mantine/core";
-import { useState } from "react";
+import { MantineProvider } from "@mantine/core";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from "./features/Home";
+import ResetPassword from "./features/ResetPassword";
+// import { CreateTransaction } from "./features/CreateTransaction";
+
+const queryClient = new QueryClient();
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <MantineProvider>
-      <Container>
-        <Button onClick={() => setCount((c) => c + 1)}>Increment</Button>
-        <div className="font-bold text-blue-500">{count}</div>
-
-        <Button>Pay Transaction</Button>
-      </Container>
-    </MantineProvider>
+    <QueryClientProvider client={queryClient}>
+      <MantineProvider>
+      <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+            </Routes>
+        </Router>
+      </MantineProvider>
+    </QueryClientProvider>
   );
 }
 
